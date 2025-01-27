@@ -21,7 +21,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copier le build dans le répertoire où nginx sert les fichiers
-COPY --from=build /app/dist/marketplace /usr/share/nginx/html
+COPY --from=build /app/dist/marketplace-front /usr/share/nginx/html
 
 # Exposer le port 80 (par défaut pour Nginx)
 EXPOSE 80
