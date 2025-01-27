@@ -1,8 +1,9 @@
 # Étape 1 : Construire l'application Angular
-FROM node:18 AS build
+FROM node:16 AS build
 
 # Définir le répertoire de travail
 WORKDIR /app
+
 
 # Copier le fichier package.json et package-lock.json
 COPY package*.json ./
