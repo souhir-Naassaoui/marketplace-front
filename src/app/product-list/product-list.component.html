@@ -1,0 +1,37 @@
+<div>
+    <h2>Liste des produits</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Prix</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+          <td>
+            <button (click)="updateProduct(product)">Mettre à jour</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h3>Ajouter un produit</h3>
+    <form (submit)="addProduct()">
+      <label>Nom:</label>
+      <input [(ngModel)]="newProduct.name" name="name" required />
+      <label>Description:</label>
+      <input [(ngModel)]="newProduct.description" name="description" required />
+      <label>Prix:</label>
+      <input [(ngModel)]="newProduct.price" name="price" type="number" required />
+      <button type="submit">Ajouter</button>
+    </form>
+  </div>
+  
