@@ -1,30 +1,22 @@
-# Étape 1 : Construire l'application Angular
+# Étape 1 : Build Angular
 FROM node:16 AS build
-
-# Définir le répertoire de travail
 WORKDIR /app
-
-
-# Copier le fichier package.json et package-lock.json
 COPY package*.json ./
-
-# Installer les dépendances
 RUN npm install
-
-# Copier tous les fichiers du projet Angular
 COPY . .
-
-# Construire l'application pour la production
 RUN npm run build --prod
 
-# Étape 2 : Créer une image plus légère pour servir l'application
+# Étape 2 : Image Nginx
 FROM nginx:alpine
-
-# Copier le build dans le répertoire où nginx sert les fichiers
 COPY --from=build /app/dist/marketplace-front /usr/share/nginx/html
 
-# Exposer le port 80 (par défaut pour Nginx)
+# Ajout du script pour modifier l'API au runtime
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Exposer le port 80
 EXPOSE 80
 
-# Lancer nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Lancer le script d'entrée
+CMD ["/entrypoint.sh"]
+
